@@ -1,6 +1,23 @@
 db_senabiblio
 /*DDL*/
 
+DROP TABLE livrosgeneros;
+DROP TABLE autoreslivros;
+DROP TABLE autores;
+DROP TABLE generos;
+DROP TABLE multas;
+DROP TABLE emails;
+DROP TABLE contatosTelefonicos;
+DROP TABLE tiposcontatos;
+DROP TABLE emprestimoslivros;
+DROP TABLE emprestimos;
+DROP TABLE livros;
+DROP TABLE editoras;
+DROP TABLE funcionarios;
+DROP TABLE enderecos;
+DROP TABLE Associados;
+
+
 CREATE TABLE autores  (
 idAutor INT AUTO_INCREMENT NOT NULL,
 nome VARCHAR(45) NOT NULL,
@@ -114,7 +131,7 @@ CREATE TABLE emprestimos(
 idEmprestimo INT AUTO_INCREMENT NOT NULL,
 Retirada DATETIME NOT NULL,
 Devolucao DATETIME NOT NULL, 
-dataDevolucaoEfetiva DATETIME NOT NULL,
+/*dataDevolucaoEfetiva DATETIME NOT NULL,*/
 idFuncionario INT NOT NULL,
 idAssociado INT NOT NULL, 
 CONSTRAINT PRIMARY KEY (IdEmprestimo),
@@ -143,7 +160,7 @@ CREATE TABLE EmprestimosLivros (
 idEmprestimo INT NOT NULL,
 idLivro INT NOT NULL,
 dataDevolucaoEfetiva DATETIME NOT NULL,
-CONSTRAINT pk_EmprestimosLivros PRIMARY KEY (idEmprestimo, idLivro),
+CONSTRAINT /*pk_EmprestimosLivros*/ PRIMARY KEY (idEmprestimo, idLivro),
 CONSTRAINT fk_EmprestimosLivros_Emprestimo FOREIGN KEY (idEmprestimo) 
 REFERENCES emprestimos(idEmprestimo),
 CONSTRAINT fk_EmprestimosLivros_Livros FOREIGN KEY (idLivro) 
@@ -154,7 +171,7 @@ SHOW TABLES
 
 
 
-
+ALTER TABLE emprestimos DROP COLUMN dataDevolucaoEfetiva;
 
 
 

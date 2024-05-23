@@ -107,10 +107,14 @@ SELECT * FROM funcionarios
 
 /*EMPRESTIMOS*/
 INSERT INTO emprestimos (Retirada, Devolucao, idFuncionario, idAssociado) 
-VALUES ('20-05-06', '20-05-10', '1', '2'), ('22-08-01', '22-08-07', '2', '4'), ('23-04-05', '23-04-12', '3', '6');
+VALUES	 ('20-05-06', '20-05-10', '1', '2'),
+ 			('22-08-01', '22-08-07', '2', '4'),
+ 			 ('23-04-05', '23-04-12', '3', '6');
  
 INSERT INTO emprestimos (Retirada, Devolucao, idFuncionario, idAssociado) 
-VALUES ('23-02-12', '24-02-12', '2', '10'), ('23-06-04', '23-07-04', '1', '5'), ('24-05-16', '24-06-16', '3', '9');
+VALUES 	('23-02-12', '24-02-12', '2', '10'),
+ 			('23-06-04', '23-07-04', '1', '5'),
+ 			 ('24-05-16', '24-06-16', '3', '9');
 
 SELECT * FROM emprestimos
 

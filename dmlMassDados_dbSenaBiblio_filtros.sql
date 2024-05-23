@@ -33,10 +33,10 @@ SELECT cidade, COUNT (idAssociado) AS 'Total de Associados' FROM enderecos
 GROUP BY cidade
 HAVING COUNT (idAssociados)>=4
 
-SELECT cidade, COUNT (idAssociado) AS 'Total de Associados' FROM enderecos 
+SELECT cidade, COUNT(idAssociado) AS 'Total de Associados' FROM enderecos 
 GROUP BY cidade
-HAVING COUNT (idAssociados)>= 5
-ORDER BY COUNT (idAssociado) ASC
+HAVING COUNT(idAssociado)>= 5
+ORDER BY COUNT(idAssociado) ASC
 
 SELECT cidade, COUNT(idAssociado) AS 'Total de Associados' FROM enderecos
 GROUP BY cidade 
@@ -85,3 +85,43 @@ INNER JOIN editoras
 ON editoras.idEditora = livros.idEditora
 GROUP BY livros.idlivro
 HAVING COUNT(autoreslivros.idAutor)>=2
+
+/*Exercicio: Relatório de quantos livros cada autor escreveu
+levando em conta apenas os autores que escreveram mais de 2
+livros. Tudo isto em ordem alfabética por nome do autor*/
+ 
+SELECT * FROM livros
+SELECT * FROM autores
+ 
+ 
+SELECT autores.nome, COUNT(autoreslivros.idautor) FROM autoreslivros
+INNER JOIN autores ON autoreslivros.idautor=autores.idautor
+INNER JOIN livros ON autoreslivros.idlivro=livros.idlivro
+GROUP BY autores.nome 
+having COUNT(autoreslivros.idautor)>=2; 
+
+/* Exercicio: Trazer quantos emprestimos foram realizados por data*/
+
+SELECT DATE(retirada), COUNT(idEmprestimo)
+AS 'Total Emprestimos'
+FROM emprestimos 
+GROUP BY DATE(retirada)
+ORDER BY retirada DESC 
+
+/*Sumiu um livro na biblioteca e precisamos saber o histórico
+dos emprestimos deste livro. 
+A query deve trazer o nome de quem o emprestou, a data, o nome 
+do funcionario. Escolha um livro para servir como filtro da busca.
+O resultado deve ser mostrado da data mais atual para a mais antiga*/
+
+SELECT nomeFuncionario, retirada, dataDevolucaoEfetiva,nomeAssociado FROM funcionarios 
+INNER JOIN emprestimos
+ON funcionarios.idFuncionario = emprestimos.idFuncionario
+INNER JOIN associados 
+ON associados.idAssociado = emprestimos.idAssociado 
+INNER JOIN emprestimoslivros
+ON emprestimoslivros.idEmprestimo = emprestimos.idEmprestimo
+INNER JOIN livros 
+ON emprestimoslivros.idLivro = livros.idlivro
+WHERE nome = 'A cantiga dos pássaros e das serpentes'
+ORDER BY retirada DESC 
