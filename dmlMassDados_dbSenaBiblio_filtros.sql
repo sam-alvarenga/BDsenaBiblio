@@ -125,3 +125,60 @@ INNER JOIN livros
 ON emprestimoslivros.idLivro = livros.idlivro
 WHERE nome = 'A cantiga dos pássaros e das serpentes'
 ORDER BY retirada DESC 
+
+/*View é utilizado para maximizar a busca do relatiorio dos comondos como */
+CREATE VIEW vw_EmprstimosPorFuncionarioEAssociado AS 
+SELECT nomeFuncionario, retirada, dataDevolucaoEfetiva,nomeAssociado
+FROM funcionarios 
+INNER JOIN emprestimos
+ON funcionarios.idFuncionario = emprestimos.idFuncionario
+INNER JOIN associados 
+ON associados.idAssociado = emprestimos.idAssociado 
+INNER JOIN emprestimoslivros
+ON emprestimoslivros.idEmprestimo = emprestimos.idEmprestimo
+INNER JOIN livros 
+ON emprestimoslivros.idLivro = livros.idlivro
+
+SELECT * FROM vw_emprstimosporfuncionarioeassociado
+WHERE nomeFuncionario = 'Maria Silva'
+
+/*Exercicio: Criar uma view que traga o nome, o celular e o email dos associados Nome da View - AssociadoContatos*/
+
+CREATE VIEW vw_AssociadoContatos as
+SELECT nomeAssociado,DDD, numero, emailAsso
+FROM associados 
+INNER JOIN contatostelefonicos
+ON associados.idAssociado = contatostelefonicos.idAssociado
+INNER JOIN emails 
+ON emails.idAssociado = associados.idAssociado
+/*INNER JOIN tiposcontatos 
+ON tiposcontatos.idTipoContato = associados.idAssociado*/
+/*GROUP BY (nomeAssociado)
+ORDER BY nomeAssociado ASC*/
+
+SELECT * FROM vw_associadocontatos
+
+/*Stored Procedures - Procedimentos Armazenados
+Criar uma procedure para inserir uma editora*/
+
+DROP PROCEDURE pi_Editoras
+
+CREATE PROCEDURE pi_Editoras
+(IN nome VARCHAR(30))
+INSERT INTO editoras(nomeeditoras)
+VALUES (nome);
+
+CALL pi_editoras ('Abril')
+
+select * FROM editoras 
+
+DELETE FROM editoras WHERE idEditora>5 
+
+/*Exercicio: Criar uma procedure que taga quantos emprestimos foram realizados por associados*/
+
+
+
+/*Exercicio: Criar uma procedure que traga quantos emprestimos foram realizados por determinado associado por nome*/
+
+
+
