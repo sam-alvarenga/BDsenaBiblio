@@ -176,9 +176,46 @@ DELETE FROM editoras WHERE idEditora>5
 
 /*Exercicio: Criar uma procedure que taga quantos emprestimos foram realizados por associados*/
 
+/*a) o que eu quero na tela? SELECT*/
+/*b) onde estão os dados que eu quero na tela?TABELAS(joins)*/
+/*c) tenho que agrupar? GROUP BY SIM*/
+/*d) tem filtro coluna nativa? WHERE* NÃO*/
+/*e) tem filtro de agroupamento? HAVING NÃO*/
+/*f) preciso ordenar? ORDEN BY* NÃO*/
 
+/*feitos esses passos, damos prosseguimento 
+"CREATE PROCEDURE"criando*/
+
+DROP PROCEDURE ps_Associados_QtdEmprestimos
+CREATE PROCEDURE ps_Associados_QtdEmprestimos()
+SELECT nomeassociado, COUNT(idemprestimo) AS 'Qtd Emprestimos'
+FROM associados
+INNER JOIN emprestimos 
+ON associados.idAssociado = emprestimos.idAssociado
+GROUP BY nomeassociado
+ 
+CALL ps_Associados_QtdEmprestimos()
+
+SELECT * FROM emprestimos
 
 /*Exercicio: Criar uma procedure que traga quantos emprestimos foram realizados por determinado associado por nome*/
+/*a) o que eu quero na tela? SELECT*/
+/*b) onde estão os dados que eu quero na tela?TABELAS(joins) SIM*/
+/*c) tenho que agrupar? GROUP BY NÃO*/
+/*d) tem filtro coluna nativa? WHERE* SIM*/
+/*e) tem filtro de agroupamento? HAVING NÃO*/
+/*f) preciso ordenar? ORDEN BY* NÃO*/
+
+CREATE PROCEDURE ps_Emprestimos_Por_Associado
+(IN nomeBuscado VARCHAR(50))
+SELECT COUNT(idemprestimo)
+AS 'Qtde de Emprestimos'
+FROM emprestimos
+INNER JOIN associados
+ON emprestimos.idAssociado = associados.idAssociado
+WHERE nomeassociado = nomeBuscado
+ 
+CALL ps_Emprestimos_Por_Associado('Anna Sbrahma')
 
 
 
